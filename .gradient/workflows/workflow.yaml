@@ -12,6 +12,8 @@ jobs:
     uses: git-checkout@v1
     with:
       url: context.event.github.url
+      username: dte
+      password: secret:ghtoken
   HelloWorld:
     resources:
       instance-type: C5
