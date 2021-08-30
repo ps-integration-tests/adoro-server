@@ -12,7 +12,7 @@ jobs:
     uses: git-checkout@v1
     with:
       url: context.event.github.url
-      username: dte
+      username: secret:ghuser
       password: secret:ghtoken
   HelloWorld:
     resources:
