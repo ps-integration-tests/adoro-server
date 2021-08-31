@@ -1,27 +1,69 @@
+defaults:
+  resources:
+    instance-type: P5000
+
 on:
   github:
     branches:
       only: main
+
 jobs:
-  CloneRepo:
+  DownloadWeights:
     resources:
-      instance-type: C5
+      instance-type: C3
+    outputs:
+      pickle:
+        type: volume
+    uses: script@v1
+    with:
+      # Downloading pre-trained weights
+      script: |-
+        pip install gdown
+        gdown https://drive.google.com/drive/folders/1PyQJmkdCsAkOYwUyaj_l-l0as-iLDgeH -O - --quiet | tar zxvf -
+      image: python:3.8-alpine
+  CloneModelRepo:
+    resources:
+      instance-type: C3
     outputs:
       repo:
         type: volume
-    uses: git-checkout@v1
-    with:
-      url: context.event.github.url
-      username: dte
-      password: secret:ghtoken
-  HelloWorld:
-    resources:
-      instance-type: C5
-    needs:
-      - CloneRepo
-    inputs:
-      repo: CloneRepo.outputs.repo
     uses: script@v1
     with:
-      script: python /inputs/repo/hello.py
-      image: tensorflow/tensorflow:1.14.0-py3
+      script: |-
+        git clone https://github.com/AliaksandrSiarohin/first-order-model.git .
+        python install -r requirements.txt
+        pip install gdown
+        gdown
+  # :
+  # CloneRepo:
+  #   resources:
+  #     instance-type: C5
+  #   outputs:
+  #     repo:
+  #       type: volume
+  #   uses: git-checkout@v1
+  #   with:
+  #     url: git@github.com:gradient-ai/adoro.git
+  # # One preparing job per driving video
+  # PrepareVideo1:
+  #   inputs:
+  #     repo: CloneRepo.outputs.repo
+  #   outputs:
+  #     artifacts:
+  #       type: volume
+  #   # RUN THE PREPROCESSING FOR KEYFRAMES FOR A VIDEO
+  #   uses: "" # Dockerfile
+  #   with:
+  #     script:
+  #     image:
+  # Frontend:
+  # # Serve the model
+  # Backend:
+  #   needs:
+  #     - CloneRepo
+  #   inputs:
+  #     repo: CloneRepo.outputs.repo
+  #   uses: script@v1
+  #   with:
+  #     script: python /inputs/repo/hello.py
+  #     image: tensorflow/tensorflow:1.14.0-py3
