@@ -59,21 +59,21 @@ export default function ShareMeme({ adoroURL }: { adoroURL: string }) {
           />
         </VStack>
 
-        <HStack spacing={4}>
+        <HStack spacing={2}>
           <TwitterShareButton url={shareUrl}>
-            <Button variant="ghost" colorScheme="yellow">
+            <Button colorScheme="twitter">
               <RiTwitterFill style={{ marginRight: 8 }} />
               Twitter
             </Button>
           </TwitterShareButton>
           <FacebookShareButton url={shareUrl}>
-            <Button variant="ghost" colorScheme="yellow">
+            <Button colorScheme="facebook">
               <RiFacebookBoxFill style={{ marginRight: 8 }} />
               Facebook
             </Button>
           </FacebookShareButton>
           <WhatsappShareButton url={shareUrl}>
-            <Button variant="ghost" colorScheme="yellow">
+            <Button colorScheme="whatsapp">
               <RiWhatsappFill style={{ marginRight: 8 }} />
               WhatsApp
             </Button>
