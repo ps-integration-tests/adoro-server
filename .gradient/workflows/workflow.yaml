@@ -33,7 +33,7 @@ jobs:
       results:
         type: dataset
         with:
-          ref: results
+          ref: test-results
     uses: script@v1
     with:
       script: |-
