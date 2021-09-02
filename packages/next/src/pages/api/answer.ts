@@ -5,6 +5,6 @@ export default async function createMeme(
   res: NextApiResponse
 ) {
   return {
-    answer: await Promise.resolve(42)
+    answer: 42
   };
 }
