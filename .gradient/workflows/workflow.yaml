@@ -19,7 +19,9 @@ jobs:
       instance-type: C3
     outputs:
       weights:
-        type: volume
+        type: dataset
+        with:
+          ref: vox-adv-cpk
     uses: script@v1
     with:
       script: |-
