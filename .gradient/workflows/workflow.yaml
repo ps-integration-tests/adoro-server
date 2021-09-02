@@ -1,49 +1,42 @@
-defaults:
-  resources:
-    instance-type: P5000
-
 on:
   github:
     branches:
       only: main
 
 jobs:
-  DownloadWeights:
-    resources:
-      instance-type: C3
-    outputs:
-      pickle:
-        type: volume
-    uses: script@v1
-    with:
-      # Downloading pre-trained weights
-      script: |-
-        pip install gdown
-        gdown https://drive.google.com/drive/folders/1PyQJmkdCsAkOYwUyaj_l-l0as-iLDgeH -O - --quiet | tar zxvf -
-      image: python:3.8-alpine
-  CloneModelRepo:
+  CloneRepo:
     resources:
       instance-type: C3
     outputs:
       repo:
         type: volume
+    uses: git-checkout@v1
+    with:
+      url: https://github.com/AliaksandrSiarohin/first-order-model.git
+      path: /outputs/repo
+  DownloadWeights:
+    resources:
+      instance-type: C3
+    outputs:
+      weights:
+        type: dataset
     uses: script@v1
     with:
       script: |-
-        git clone https://github.com/AliaksandrSiarohin/first-order-model.git .
-        python install -r requirements.txt
-        pip install gdown
-        gdown
-  # :
-  # CloneRepo:
+        pip install gdown 
+        python -m gdown https://drive.google.com/uc?id=1L8P-hpBhZi8Q_1vP2KlQ4N6dvlzpYBvZ > /outputs/weights/vox.pt
+      image: python:3.8
+  # PreprocessVideos: pass
+  # GenerateAdoro:
   #   resources:
-  #     instance-type: C5
+  #     instance-type: P5000
   #   outputs:
-  #     repo:
-  #       type: volume
-  #   uses: git-checkout@v1
+  #     image:
+  #       type: dataset
+  #   uses: script@v1
   #   with:
-  #     url: git@github.com:gradient-ai/adoro.git
+  #     image:
+
   # # One preparing job per driving video
   # PrepareVideo1:
   #   inputs:
@@ -56,14 +49,3 @@ jobs:
   #   with:
   #     script:
   #     image:
-  # Frontend:
-  # # Serve the model
-  # Backend:
-  #   needs:
-  #     - CloneRepo
-  #   inputs:
-  #     repo: CloneRepo.outputs.repo
-  #   uses: script@v1
-  #   with:
-  #     script: python /inputs/repo/hello.py
-  #     image: tensorflow/tensorflow:1.14.0-py3
