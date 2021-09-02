@@ -29,6 +29,9 @@ jobs:
   RunModel:
     resources:
       instance-type: P5000
+    needs:
+      - DownloadWeights
+      - CloneRepo
     inputs:
       weights: DownloadWeights.outputs.weights
       repo: CloneRepo.outputs.repo
