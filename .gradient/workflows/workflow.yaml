@@ -35,38 +35,19 @@ jobs:
       - DownloadWeights
       - CloneRepo
     inputs:
-      weights: DownloadWeights.outputs.weights
       repo: CloneRepo.outputs.repo
+      model: DownloadWeights.outputs.weights
+      faces:
+        type: dataset
+        with:
+          ref: input-photos
     uses: script@v1
     with:
       script: |-
         cp -r /inputs/repo/ repo/
         cp /inputs/weights/vox.pt repo/vox.pt
         cd repo/
-        python -m pip install \
+        pip install \
           https://download.pytorch.org/whl/cu100/torch-1.0.0-cp36-cp36m-linux_x86_64.whl \
           -r requirements.txt
       image: nvcr.io/nvidia/cuda:10.0-cudnn7-runtime-ubuntu18.04
-  # PreprocessVideos: pass
-  # GenerateAdoro:
-  #   resources:
-  #     instance-type: P5000
-  #   outputs:
-  #     image:
-  #       type: dataset
-  #   uses: script@v1
-  #   with:
-  #     image:
-
-  # # One preparing job per driving video
-  # PrepareVideo1:
-  #   inputs:
-  #     repo: CloneRepo.outputs.repo
-  #   outputs:
-  #     artifacts:
-  #       type: volume
-  #   # RUN THE PREPROCESSING FOR KEYFRAMES FOR A VIDEO
-  #   uses: "" # Dockerfile
-  #   with:
-  #     script:
-  #     image:
