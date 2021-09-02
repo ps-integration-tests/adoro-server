@@ -24,8 +24,22 @@ jobs:
     with:
       script: |-
         pip install gdown 
-        python -m gdown https://drive.google.com/uc?id=1L8P-hpBhZi8Q_1vP2KlQ4N6dvlzpYBvZ > /outputs/weights/vox.pt
+        gdown https://drive.google.com/uc?id=1L8P-hpBhZi8Q_1vP2KlQ4N6dvlzpYBvZ > /outputs/weights/vox.pt
       image: python:3.8
+  RunModel:
+    resources:
+      instance-type: P5000
+    inputs:
+      weights: DownloadWeights.outputs.weights
+      repo: CloneRepo.outputs.repo
+    uses: script@v1
+    with:
+      script: |-
+        cp -r /inputs/repo/ repo/
+        cp /inputs/weights/vox.pt repo/vox.pt
+        cd repo/
+        pip install -r requirements.txt
+      image: python3.8
   # PreprocessVideos: pass
   # GenerateAdoro:
   #   resources:
