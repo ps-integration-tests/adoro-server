@@ -24,7 +24,7 @@ jobs:
     with:
       script: |-
         pip install gdown 
-        gdown https://drive.google.com/uc?id=1L8P-hpBhZi8Q_1vP2KlQ4N6dvlzpYBvZ > /outputs/weights/vox.pt
+        gdown https://drive.google.com/uc?id=1L8P-hpBhZi8Q_1vP2KlQ4N6dvlzpYBvZ -O /outputs/weights/vox.pt
       image: python:3.8
   RunModel:
     resources:
@@ -41,8 +41,11 @@ jobs:
         cp -r /inputs/repo/ repo/
         cp /inputs/weights/vox.pt repo/vox.pt
         cd repo/
-        pip install -r requirements.txt
-      image: python:3.8
+        pip3 install --upgrade pip
+        pip3 install \
+          https://download.pytorch.org/whl/cu100/torch-1.0.0-cp36-cp36m-linux_x86_64.whl \
+          -r requirements.txt
+      image: nvcr.io/nvidia/cuda:10.0-cudnn7-runtime-ubuntu18.04
   # PreprocessVideos: pass
   # GenerateAdoro:
   #   resources:
