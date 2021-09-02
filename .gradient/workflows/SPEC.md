@@ -2,14 +2,6 @@
 
 Gradient Workflows let you use GitHub-action style YAML syntax to string together powerful automations.
 
-Together we're going to make a workflow to create a fun little app called _adora_.
-
-For this project, we're going to create a fun little app with the excellent [First Order Motion Model](https://github.com/AliaksandrSiarohin/first-order-model) by Aliaksandr Siarohin et al.
-
-![Mapping the driving video motion onto a picture](https://github.com/AliaksandrSiarohin/first-order-model/raw/master/sup-mat/relative-demo.gif)
-
-Looking over the README, we look at the [installation docs](https://github.com/AliaksandrSiarohin/first-order-model#installation). Looks like we need Python 3 and pytorch. So we're going to use the
-
 - **Workflow:** a named or unnamed entity that belongs to a team and project. Named workflows can be re-run with a default workflow spec, or be passed a new spec every time.
 - **Workflow Spec:** a YAML list of jobs that is converted into an Argo template and run on the Gradient distributed runtime engine.
 - **Job:**
