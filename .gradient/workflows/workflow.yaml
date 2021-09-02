@@ -19,7 +19,7 @@ jobs:
       instance-type: C3
     outputs:
       weights:
-        type: dataset
+        type: volume
     uses: script@v1
     with:
       script: |-
