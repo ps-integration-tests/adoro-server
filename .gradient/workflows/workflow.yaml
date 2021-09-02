@@ -47,6 +47,8 @@ jobs:
         cp -r /inputs/repo/ repo/
         cp /inputs/weights/vox.pt repo/vox.pt
         cd repo/
+        DEBIAN_FRONTEND=noninteractive apt-get -qq update \
+          && DEBIAN_FRONTEND=noninteractive apt-get -qqy install python3-pip
         pip install \
           https://download.pytorch.org/whl/cu100/torch-1.0.0-cp36-cp36m-linux_x86_64.whl \
           -r requirements.txt
