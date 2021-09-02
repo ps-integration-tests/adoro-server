@@ -18,7 +18,7 @@ jobs:
     resources:
       instance-type: C3
     outputs:
-      weights:
+      model:
         type: dataset
         with:
           ref: vox-adv-cpk
@@ -26,7 +26,7 @@ jobs:
     with:
       script: |-
         pip install gdown 
-        gdown https://drive.google.com/uc?id=1L8P-hpBhZi8Q_1vP2KlQ4N6dvlzpYBvZ -O /outputs/weights/vox.pt
+        gdown https://drive.google.com/uc?id=1L8P-hpBhZi8Q_1vP2KlQ4N6dvlzpYBvZ -O /outputs/model/vox.pt
       image: python:3.8
   RunModel:
     resources:
@@ -36,7 +36,7 @@ jobs:
       - CloneRepo
     inputs:
       repo: CloneRepo.outputs.repo
-      model: DownloadWeights.outputs.weights
+      model: DownloadWeights.outputs.model
       faces:
         type: dataset
         with:
