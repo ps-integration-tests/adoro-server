@@ -45,7 +45,7 @@ jobs:
     with:
       script: |-
         cp -r /inputs/repo/ repo/
-        cp /inputs/weights/vox.pt repo/vox.pt
+        cp /inputs/model/vox.pt repo/vox.pt
         cd repo/
         DEBIAN_FRONTEND=noninteractive apt-get -qq update \
           && DEBIAN_FRONTEND=noninteractive apt-get -qqy install python3-pip
