@@ -39,7 +39,7 @@ jobs:
         cp /inputs/weights/vox.pt repo/vox.pt
         cd repo/
         pip install -r requirements.txt
-      image: python3.8
+      image: python:3.8
   # PreprocessVideos: pass
   # GenerateAdoro:
   #   resources:
