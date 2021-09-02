@@ -4,7 +4,5 @@ export default async function createMeme(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  return {
-    answer: 42
-  };
+  return { answer: 42 };
 }
