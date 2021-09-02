@@ -11,7 +11,7 @@ jobs:
       model:
         type: dataset
         with:
-          ref: vox-adv-cpk
+          ref: model
     uses: script@v1
     with:
       script: |-
