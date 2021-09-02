@@ -4,7 +4,7 @@ Today we're going to look at how Papersuite's Gradient lets you train, deploy, a
 
 For simplicity, we're going to use a pre-trained model to build Adoro, a deepfake app that animates you into a romantic Italian opera singer.
 
-This 2-part README will cover:
+This 3-part README will briefly cover:
 
 1. The First Order Motion Model
 2. Using Workflows and Datasets for model validation
