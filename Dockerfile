@@ -1,3 +1,4 @@
 FROM paperspace/first-order-model:latest
 
-RUN pip3 install fastapi aiofiles uvicorn[standard]
+ADD . ./
+CMD ["uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
