@@ -1,8 +1,6 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
-from demo import 
-
 app = FastAPI()
 
 app.mount("/", StaticFiles(directory="adoro-web"), name="adoro-web")
