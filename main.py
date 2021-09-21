@@ -1,6 +1,5 @@
 from fastapi import FastAPI
-
-from demo import 
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
