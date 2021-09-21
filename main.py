@@ -1,14 +1,9 @@
 from fastapi import FastAPI
-
-from demo import 
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
-
-@app.get("/question")
-def question():
-    return {"answer": 42}
-
+app.mount("/", StaticFiles(directory="adoro-web", html=True),  name="adoro-web")
 
 @app.post("/generate")
 def create_adoro(reference_png_base64: str):
