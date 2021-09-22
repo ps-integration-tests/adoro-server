@@ -50,6 +50,7 @@ jobs:
     resources:
       instance-type: C3
     uses: script@v1
+    with:
       script: |-
         cat > ./deployment.yaml <<EOF
         image: paperspace/first-order-model:server
