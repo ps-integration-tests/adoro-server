@@ -59,6 +59,7 @@ jobs:
           replicas: 1
           instanceType: P5000
         EOF
+        apt update > /dev/null
         apt-get install -y jq
         gradient deployments create --name adoro-${RANDOM} --projectId ${PROJECT_ID} --spec ./deployment.yaml |awk '{print $3}'> ./deployment.id
         gradient deployments get --id $(cat ./deployment.id)|jq '.deploymentSpecs[0].endpointUrl' -r
