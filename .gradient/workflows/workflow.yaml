@@ -28,12 +28,12 @@ jobs:
       assets:
         type: dataset
         with:
-          ref: test-assets
+          ref: demo-dataset
     outputs:
       results:
         type: dataset
         with:
-          ref: test-results
+          ref: demo-dataset
     uses: script@v1
     with:
       script: |-
