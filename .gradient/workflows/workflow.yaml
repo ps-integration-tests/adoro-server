@@ -53,7 +53,7 @@ jobs:
     with:
       script: |-
         cat > ./deployment.yaml <<EOF
-        image: paperspace/first-order-model:server
+        image: paperspace/first-order-model:all
         port: 8000
         resources:
           replicas: 1
