@@ -44,40 +44,19 @@ jobs:
           --source_image /inputs/assets/face.png \
           --result_video /outputs/results/adoro.mp4
       image: paperspace/first-order-model
-
-  # RunModel:
-  #   resources:
-  #     instance-type: P5000
-  #   needs:
-  #     - DownloadWeights
-  #     - CloneRepo
-  #   inputs:
-  #     repo: CloneRepo.outputs.repo
-  #     model: DownloadWeights.outputs.model
-  #     assets:
-  #       type: dataset
-  #       with:
-  #         ref: test-assets
-  #   outputs:
-  #     videos:
-  #       type: dataset
-  #       with:
-  #         ref: test-results
-  #   uses: script@v1
-  #   with:
-  #     script: |-
-  #       cp -r /inputs/repo/ repo/
-  #       cd repo/
-  #       DEBIAN_FRONTEND=noninteractive apt-get -qq update \
-  #         && DEBIAN_FRONTEND=noninteractive apt-get -qqy install python3-pip
-  #       pip3 install --upgrade pip
-  #       pip3 install \
-  #         https://download.pytorch.org/whl/cu100/torch-1.0.0-cp36-cp36m-linux_x86_64.whl \
-  #         -r requirements.txt
-  #       python3 demo.py --config config/vox-256.yaml \
-  #         --checkpoint /inputs/model/vox.pt \
-  #         --relative --adapt_scale \
-  #         --driving_video /inputs/assets/driving.mp4 \
-  #         --source_image /inputs/assets/face.png \
-  #         --result_video /outputs/videos/result.mp4
-  #     image: nvcr.io/nvidia/cuda:10.0-cudnn7-runtime-ubuntu18.04
+  CreateDeployment:
+    needs:
+      - ValidateModel
+    resources:
+      instance-type: C3
+    uses: script@v1
+      script: |-
+        cat > ./deployment.yaml <<EOF
+        image: paperspace/first-order-model:server
+        port: 8000
+        resources:
+          replicas: 1
+          instanceType: P5000
+        EOF
+        gradient deployments create --name adora --projectId ${PROJECT_ID} --spec ./deployment.yaml
+      image: paperspace/gradient-sdk
