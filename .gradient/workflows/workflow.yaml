@@ -59,5 +59,8 @@ jobs:
           replicas: 1
           instanceType: P5000
         EOF
-        gradient deployments create --name adoro-${RANDOM} --projectId ${PROJECT_ID} --spec ./deployment.yaml
+        apt-get install -y jq
+        gradient deployments create --name adoro-${RANDOM} --projectId ${PROJECT_ID} --spec ./deployment.yaml |awk '{print $3}'> ./deployment.id
+        gradient deployments get --id $(cat ./deployment.id)|jq '.deploymentSpecs[0].endpointUrl' -r
+
       image: paperspace/gradient-sdk
