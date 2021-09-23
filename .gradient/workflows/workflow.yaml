@@ -25,10 +25,6 @@ jobs:
       instance-type: P5000
     inputs:
       model: PrepareModel.outputs.model
-      assets:
-        type: dataset
-        with:
-          ref: demo-dataset
     outputs:
       results:
         type: dataset
