@@ -22,7 +22,7 @@ jobs:
     needs:
       - PrepareModel
     resources:
-      instance-type: P5000
+      instance-type: P4000
     inputs:
       model: PrepareModel.outputs.model
     outputs:
