@@ -49,11 +49,11 @@ jobs:
     with:
       script: |-
         cat > ./deployment.yaml <<EOF
-        image: paperspace/first-order-model:all
+        image: paperspace/adoro-server:latest
         port: 8000
         resources:
           replicas: 1
-          instanceType: P5000
+          instanceType: P4000
         EOF
         apt update > /dev/null
         apt-get install -y jq
