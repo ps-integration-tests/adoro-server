@@ -49,7 +49,7 @@ jobs:
     with:
       script: |-
         cat > ./deployment.yaml <<EOF
-        image: paperspace/adoro-server:latest
+        image: paperspace/adoro-server:1.0.0
         port: 8000
         resources:
           replicas: 1
