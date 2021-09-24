@@ -1,4 +1,4 @@
-FROM paperspace/first-order-model:latest
+FROM paperspace/first-order-model:0.1.0
 ADD . ./
 
 ENV LC_ALL=C.UTF-8
