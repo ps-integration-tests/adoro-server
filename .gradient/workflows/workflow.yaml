@@ -4,27 +4,14 @@ on:
       only: main
 
 jobs:
-  PrepareModel:
-    resources:
-      instance-type: C3
-    outputs:
-      model:
-        type: dataset
-        with:
-          ref: demo-dataset
-    uses: script@v1
-    with:
-      script: |-
-        pip install gdown 
-        gdown https://drive.google.com/uc?id=1L8P-hpBhZi8Q_1vP2KlQ4N6dvlzpYBvZ -O /outputs/model/vox.pt
-      image: python:3.8
   ValidateModel:
-    needs:
-      - PrepareModel
     resources:
       instance-type: P5000
     inputs:
-      model: PrepareModel.outputs.model
+      model:
+        type: dataset
+        with:
+          ref: gradient/voxpt
     outputs:
       results:
         type: dataset
@@ -49,7 +36,7 @@ jobs:
     with:
       script: |-
         cat > ./deployment.yaml <<EOF
-        image: paperspace/adoro-server:latest
+        image: paperspace/adoro-server:1.0.0
         port: 8000
         resources:
           replicas: 1
